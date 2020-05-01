@@ -24,7 +24,7 @@ router.get('/lists', (req, res, next) => {
 })
 
 // SHOW
-router.get('/lists/:id', (req, res, next) => {
+router.get('/lists/:id', requireToken, (req, res, next) => {
   List.findById(req.params.id)
     .then(handle404)
     .then(list => res.status(200).json({ list: list.toObject() }))
