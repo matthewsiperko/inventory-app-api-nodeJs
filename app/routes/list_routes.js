@@ -14,8 +14,8 @@ router            = express.Router()
 
 
 // INDEX
-router.get('/lists', (req, res, next) => {
-  List.find()
+router.get('/lists', requireToken, (req, res, next) => {
+  List.find({ owner: req.user._id })
     .then(lists => {
       return lists.map(list => list.toObject())
     })
